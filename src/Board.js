@@ -18,14 +18,16 @@ function Board() {
   ];
 
   const checkWinner = (squares) => {
-    // for (const line of lines) {
-    //   const [a, b, c] = line;
-    //   if (squares[a] && squares[a] == squares[b] && squares[a] == squares[c]) {
-    //     return status;
-    //   }
-    // }
+    for (const line of lines) {
+      const [a, b, c] = line;
+      if (squares[a] && squares[a] == squares[b] && squares[a] == squares[c]) {
+        return status;
+      }
+    }
 
+    /*
     for (let i = 0; i <= 2; i++) {
+    // check hang ngang
       if (
         squares[i * 3] &&
         squares[i * 3] == squares[i * 3 + 1] &&
@@ -33,6 +35,7 @@ function Board() {
       ) {
         return status;
       }
+    // check hang doc
       if (
         squares[i + 3] &&
         squares[i + 3] == squares[i + 6] &&
@@ -42,27 +45,35 @@ function Board() {
       }
     }
 
-    // for (let i = 0; i <= 8; i++) {
-    //   for (let j = 0; j <= i; j++) {
-    //     for (let k = 0; k <= j; k++) {
-    //       if () {
-    //         return status;
-    //       }
-    //     }
-    //   }
-    // }
+    for (let i = 0; i <= 8; i++) {
+      for (let j = 0; j <= i; j++) {
+        for (let k = 0; k <= j; k++) {
+          if (
+            squares[i] &&
+            squares[i] == squares[j] &&
+            squares[i] == squares[k] &&
+            i + j + k == 12
+          ) {
+            return status;
+          }
+        }
+      }
+    }
+    */
   };
 
   const handleClick = (i) => {
+    if (squares[i]) {
+      return;
+    }
     //dat lai gia tri cua square = X hoac O
     let s = squares[i];
     s = status === "X" ? "X" : "O";
     let copy = [...squares]; //copy ra 1 mang khac
-    copy[i] = s; //thay doi gia tri cua 1 ptu trong mang
+    copy[i] = s; //thay doi gia tri ptu i trong mang
     setSquares(copy); //set squares = mang moi
-    setStatus(status === "X" ? "O" : "X");
-
-    // setSquares(squares.splice(i, i, s));
+    
+    
     //check winner
     const win = checkWinner(copy);
     if (win) {
