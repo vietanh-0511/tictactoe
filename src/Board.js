@@ -6,28 +6,29 @@ function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [winner, setWinner] = useState("");
 
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-
   const checkWinner = (squares) => {
-    for (const line of lines) {
-      const [a, b, c] = line;
-      if (squares[a] && squares[a] == squares[b] && squares[a] == squares[c]) {
-        return status;
-      }
-    }
+    // const lines = [
+    //   [0, 1, 2],
+    //   [3, 4, 5],
+    //   [6, 7, 8],
+    //   [0, 3, 6],
+    //   [1, 4, 7],
+    //   [2, 5, 8],
+    //   [0, 4, 8],
+    //   [2, 4, 6],
+    // ];
+    
+    // for (const line of lines) {
+    //   const [a, b, c] = line;
+    //   if (squares[a] && squares[a] == squares[b] && squares[a] == squares[c]) {
+    //     return status;
+    //   }
+    // }
+    // return null;
 
-    /*
+    // /*
     for (let i = 0; i <= 2; i++) {
-    // check hang ngang
+      // check hang ngang
       if (
         squares[i * 3] &&
         squares[i * 3] == squares[i * 3 + 1] &&
@@ -35,19 +36,18 @@ function Board() {
       ) {
         return status;
       }
-    // check hang doc
+      // check hang doc
       if (
-        squares[i + 3] &&
-        squares[i + 3] == squares[i + 6] &&
-        squares[i + 3] == squares[i + 6]
+        squares[i] &&
+        squares[i] == squares[i + 3] &&
+        squares[i] == squares[i + 6]
       ) {
         return status;
       }
-    }
 
-    for (let i = 0; i <= 8; i++) {
-      for (let j = 0; j <= i; j++) {
-        for (let k = 0; k <= j; k++) {
+      // check cheo
+      for (let j = 3; j <= 5; j++) {
+        for (let k = 6; k <= 8; k++) {
           if (
             squares[i] &&
             squares[i] == squares[j] &&
@@ -59,21 +59,23 @@ function Board() {
         }
       }
     }
-    */
+
+    // */
   };
 
   const handleClick = (i) => {
     if (squares[i]) {
       return;
     }
+
     //dat lai gia tri cua square = X hoac O
     let s = squares[i];
     s = status === "X" ? "X" : "O";
     let copy = [...squares]; //copy ra 1 mang khac
     copy[i] = s; //thay doi gia tri ptu i trong mang
     setSquares(copy); //set squares = mang moi
-    
-    
+    // setSquares(squares.splice(1, i, s));
+
     //check winner
     const win = checkWinner(copy);
     if (win) {
